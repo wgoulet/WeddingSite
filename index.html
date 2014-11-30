@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="us">
+<head>
+	<meta charset="utf-8">
+	<title>Jen and Walter's Wedding Site!</title>
+        <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Dancing+Script:700,400' rel='stylesheet' type='text/css'>
+	<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+        <link href="jquery-ui.css" rel="stylesheet">
+	<style>
+        h1 { font-family: 'Dancing Script', cursive; 
+             font-weight: 700;
+             font-size: 400%;
+             color: #655874;
+        }
+	h2 { font-family: 'Dancing Script', cursive;
+             font-size: 300%;
+             color: #655874;
+	}
+	body{
+		font: 62.5% "Trebuchet MS", sans-serif;
+		margin: 50px;
+                background-color: #F0E8CF;
+	}
+	.demoHeaders {
+		margin-top: 2em;
+	}
+        #tabs {
+		font: 150% "Trebuchet MS", sans-serif;
+		margin: 50px;
+        }
+	#dialog-link {
+		padding: .4em 1em .4em 20px;
+		text-decoration: none;
+		position: relative;
+	}
+	#dialog-link span.ui-icon {
+		margin: 0 5px 0 0;
+		position: absolute;
+		left: .2em;
+		top: 50%;
+		margin-top: -8px;
+	}
+	#icons {
+		margin: 0;
+		padding: 0;
+	}
+	#icons li {
+		margin: 2px;
+		position: relative;
+		padding: 4px 0;
+		cursor: pointer;
+		float: left;
+		list-style: none;
+	}
+	#icons span.ui-icon {
+		float: left;
+		margin: 0 4px;
+	}
+	.fakewindowcontain .ui-widget-overlay {
+		position: absolute;
+	}
+	select {
+		width: 200px;
+	}
+	</style>
+</head>
+<body>
+
+<h1>Welcome to Jen and Walter's Wedding Site!</h1>
+<h2>May 30, 2015 Chicago, IL</h2>
+<form class="form-vertical" id="grid-form" role="form">
+<div id="tabs">
+        <ul>
+                <li><a href="#tabs-1">Our Story</a></li>
+                <li><a href="#tabs-2">Location</a></li>
+                <li><a href="#tabs-3">Accomodations</a></li>
+                <li><a href="#tabs-4">Pictures</a></li>
+        </ul>
+        <div id="tabs-1">Jen and Walter met while Walter was leading a reading club for the most influential book he's ever read, Atlas Shrugged. Jen decided to fight against her instincts to stay warm during the brutal winter of 2010 and decided she needed to do something to get out of the house. After clicking through a Facebook ad for the first and last time in her life, she found the Chicago Objectivist Society's website and found that the reading group was just starting up. 4 months into the session, they started dating and the rest is history!
+<br>
+<br>
+They were engaged on March 5th, 2014 while in New Orleans with their awesome friends Molly & Kyle for Mardi Gras.
+		<div id="pics">
+			<img src="/images/jenpic.jpg" width=300px></img>
+			<img src="/images/uspic.jpg" width=500px></img>
+        	</div>
+	</div>
+
+        <div id="tabs-2">Our wedding will be held at the Copernicus Center in the Jefferson Park neighborhood in Chicago, IL. The Copernicus Center is a Polish community center (no, neither of us have any Polish in us as far we know!) that is conviently located near O'Hare Airport, the Kennedy Expressway, the Blue line 'L' stop, and our house!
+<br>
+<br>
+We chose this venue because of its great location, beautiful interiors and the fact that it is a Chicago landmark.
+		<div id="vpics">
+			<img src="/images/ccpic1.jpg" width=600px></img>
+		</div>
+        </div>
+        <div id="tabs-3">ToDo</div>
+        <div id="tabs-4">Our engagement photos were taken at the Chicago Botanical Gardens this past summer.
+		<div class="epics"></div>
+	</div>
+</form>
+
+<script src="external/jquery/jquery.js"></script>
+<script src="jquery-ui.js"></script>
+<link rel="stylesheet" href="jquery.justified.css">
+<script src="jquery.justified.js"></script>
+<script>
+$( "#tabs" ).tabs();
+
+$(document).ready(function(){
+            console.log("ready!");
+            $('#grid-form').submit(function(e){
+                e.preventDefault();
+                $.ajax({
+                    url : 'https://api.flickr.com/services/rest/?jsoncallback=?',
+                    method: 'get',
+                    data : {
+                        method : 'flickr.photos.search',
+                        api_key : '2b76793b6787a09c14929811d2cef67e',
+                        text : 'potrait',
+                        sort : 'interestingness-desc',
+                        format : 'json',
+                        extras : 'url_t,url_s,url_q,url_m,url_n,url_z,url_c,url_l',
+                        //per_page : $('#numPhotos').val()
+                        per_page : 20
+                    },
+                    dataType: 'json',
+                    success : function(data){
+                        showPhotos(data.photos.photo);
+                    }
+                })
+            });
+            $('#grid-form').submit();
+        });
+
+var showPhotos = function(photos){
+    $('.epics').empty().justifiedImages({
+        images : photos,
+        rowHeight: 200,
+        maxRowHeight: 400,
+        thumbnailPath: function(photo, width, height){
+            var purl = photo.url_s;
+            if( photo.url_n && (width > photo.width_s * 1.2 || height > photo.height_s * 1.2) ) purl = photo.url_n;
+            if( photo.url_m && (width > photo.width_n * 1.2 || height > photo.height_n * 1.2) ) purl = photo.url_m;
+            if( photo.url_z && (width > photo.width_m * 1.2 || height > photo.height_m * 1.2) ) purl = photo.url_z;
+            if( photo.url_l && (width > photo.width_z * 1.2 || height > photo.height_z * 1.2) ) purl = photo.url_l;
+            return purl;
+        },
+        getSize: function(photo){
+            return {width: photo.width_s, height: photo.height_s};
+        },
+        margin: 1
+    });
+}
+
+</script>
+</body>
+</html>
