@@ -1,0 +1,4 @@
+# Iterate through all image files in a directory and create a thumbnail of it
+# new thumbfile name consists of the original image name prior to extension with -thumb.jpg
+# appended
+for i in $(ls *.jpg); do s=`echo $i | awk -F\. '{print $1}'`; convert $i -scale 120x120 $s-thumb.jpg; done
