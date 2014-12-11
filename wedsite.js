@@ -1,7 +1,6 @@
 
 $(document).ready(function(){
             $( "#tabs" ).tabs();
-            console.log("ready!");
             var options = {
                 $AutoPlay: true,
                 $AutoPlayInterval: 4000,

@@ -171,3 +171,18 @@ select {
 .jssora11rdn {
 	background-position: -311px -41px;
 }
+
+/* Style for location tab contents */
+#lregion {
+        width:100%;
+}
+
+#vpics {
+        float:left;
+}
+
+#map {
+        float:left;
+        width:200px;
+}
+
