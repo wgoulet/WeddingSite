@@ -15,6 +15,12 @@ body > .container {
     height: 100%;
 }
 
+/* Make the size of the picture tab static */
+
+.slide {
+    height: 750px;
+}
+
 h1 {
     font-family: 'Dancing Script', cursive; 
 	font-weight: 700;
