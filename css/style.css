@@ -17,7 +17,7 @@ body > .container {
 
 /* Make the size of the picture tab static */
 
-.slide {
+.carousel {
     height: 750px;
 }
 
