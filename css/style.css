@@ -21,6 +21,12 @@ body > .container {
     height: 750px;
 }
 
+img {
+    max-height: 700px;
+    max-width: 100%;
+    height: auto;
+}
+
 h1 {
     font-family: 'Dancing Script', cursive; 
 	font-weight: 700;
