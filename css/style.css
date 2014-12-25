@@ -77,7 +77,6 @@ h2  {
     background-color: #5f5964;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    margin-right: 2px;
 }
 
 .nav-tabs > li.active > a,
@@ -86,7 +85,7 @@ h2  {
     color: #FFFFFF;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    margin-right: 2px;
+    margin-right: 1px;
 }
 
 .tab-content {
