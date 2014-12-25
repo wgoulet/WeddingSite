@@ -27,6 +27,12 @@ img {
     height: auto;
 }
 
+.ccpic {
+    max-height: 150px;
+    max-width: 100%;
+    height: auto;
+}
+
 h1 {
     font-family: 'Dancing Script', cursive; 
 	font-weight: 700;
