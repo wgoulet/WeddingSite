@@ -23,13 +23,18 @@ $(document).ready(function(){
         label: 'Jefferson Park CTA Station',
         latlng: [41.969880, -87.761852]
     };
+
+    var fischmansBar = {
+        label: 'Fischman Liquors',
+        latlng: [41.967152,-87.760672]
+    };
     
     var map;
     $('a[href="#location"]').on("shown.bs.tab", function (e) {
         if( map == undefined) {
             drawMap('map', {
                 center: [41.968811, -87.759883],
-                positions: [copernicus, jeffersonCTA]
+                positions: [copernicus, jeffersonCTA, fischmansBar]
             });
         }
     });
